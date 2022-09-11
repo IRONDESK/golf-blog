@@ -2,7 +2,7 @@ import Head from "next/head"
 import { useRouter } from "next/router"
 
 interface TitleProps {
-  title: string
+  title?: string
 }
 
 export const Title = ({ title }: TitleProps) => {
