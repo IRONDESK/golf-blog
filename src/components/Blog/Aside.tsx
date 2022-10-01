@@ -9,7 +9,7 @@ function Aside() {
         <Avatar />
         <ProfileText>
           <strong>이름</strong>
-          <span>@nickname</span>
+          <p>@nickname</p>
         </ProfileText>
       </Profile>
       <BoardList>board</BoardList>
@@ -19,35 +19,35 @@ function Aside() {
 }
 
 const Container = styled.aside`
-  width: 260px;
+  margin-left: -28px;
+  padding: 36px 0;
+  min-width: 264px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  & > div,
-  & > ul {
-    padding: 16px;
-    background-color: ${COLOR.white};
-    border-radius: 10px;
-  }
+  background-color: #ffffff;
+  border-top-right-radius: 24px;
+  border-bottom-right-radius: 24px;
+  box-shadow: 0 0 32px 12px rgba(0, 0, 0, 0.05);
 `
 const Profile = styled.div``
 const Avatar = styled.p`
-  float: left;
-  width: 48px;
-  height: 48px;
+  margin: 0 auto;
+  width: 100px;
+  height: 100px;
+  background-color: #fff;
   border: 1px solid ${COLOR.border};
   border-radius: 100%;
 `
 const ProfileText = styled.div`
-  margin: 6px 0 6px 48px;
-  padding: 0 0 0 12px;
-  text-align: left;
-  line-height: 1.1rem;
+  text-align: center;
   strong {
     display: block;
+    padding: 16px 0 8px;
     font-weight: 600;
+    font-size: 1.5rem;
   }
-  span {
+  p {
     color: ${COLOR.gray};
     font-size: 0.9rem;
     font-weight: 300;

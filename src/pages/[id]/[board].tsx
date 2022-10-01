@@ -1,7 +1,10 @@
+import styled from "@emotion/styled"
 import React from "react"
+import Blog from "../../components/Layouts/partials/Blog"
+styled
 
 function Board() {
-  return <div>Board</div>
+  return <Blog>here</Blog>
 }
 
 export default Board
