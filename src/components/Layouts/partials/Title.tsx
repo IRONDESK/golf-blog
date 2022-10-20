@@ -10,7 +10,9 @@ export const Title = ({ title }: TitleProps) => {
   return (
     <Head>
       <title>
-        {router.pathname === "/" ? "리얼로그 ─ REALOG" : `${title} | 리얼로그`}
+        {router.pathname === "/" || !title
+          ? "리얼로그 ─ REALOG"
+          : `${title} | 리얼로그`}
       </title>
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
