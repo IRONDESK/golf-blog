@@ -1,17 +1,39 @@
-import React from "react"
+import React, { useState } from "react"
 import Link from "next/link"
 import styled from "@emotion/styled"
 import { COLOR } from "../../shared/constants"
 
+import { LoginAuth } from "../../api/UserAuthApi"
+
 function Login() {
+  const [userEmail, setUserEmail] = useState("")
+  const [userPwd, setUserPwd] = useState("")
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault()
+    LoginAuth(userEmail, userPwd).then((res) => console.log(res))
+  }
+
   return (
     <Container>
-      <Form>
-        <input style={{ order: 2 }} type="text" id="email" autoFocus={true} />
+      <Form onSubmit={handleLogin}>
+        <input
+          style={{ order: 2 }}
+          type="text"
+          id="email"
+          autoFocus={true}
+          onChange={(e) => setUserEmail(e.target.value)}
+          value={userEmail}
+        />
         <label style={{ order: 1 }} htmlFor="email">
           이메일
         </label>
-        <input style={{ order: 4 }} type="password" id="password" />
+        <input
+          style={{ order: 4 }}
+          type="password"
+          id="password"
+          onChange={(e) => setUserPwd(e.target.value)}
+          value={userPwd}
+        />
         <label style={{ order: 3 }} htmlFor="password">
           비밀번호
         </label>
