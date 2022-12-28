@@ -1,7 +1,7 @@
 export interface IBoardArticleTypes {
-  title: string
-  content: string
-  lastModifiedAt: string
-  createdBy: string
-  likeCount: number
+  boardId: number;
+  title: string;
+  content: string;
+  createdAt: string;
+  createdBy: string;
 }
