@@ -6,6 +6,7 @@ import { FindByBoardId } from "../../api/BoardApi";
 import Blog from "../../components/Layouts/Blog";
 import PostCard from "../../components/Blog/PostCard";
 import { FindMemberInfoByNickname } from "../../api/MemberApi";
+import { Title } from "../../components/Layouts";
 
 interface IBoardArticlePropsType {
   nickname: string;
@@ -18,6 +19,7 @@ function Board({ nickname, boardId }: IBoardArticlePropsType) {
 
   return (
     <Blog userData={userData} blogData={[]}>
+      <Title title={BoardData?.title} />
       <PostCard
         key={BoardData?.boardId}
         title={BoardData?.title}
