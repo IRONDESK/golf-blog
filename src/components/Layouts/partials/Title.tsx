@@ -1,18 +1,18 @@
-import Head from "next/head"
-import { useRouter } from "next/router"
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 interface TitleProps {
-  title?: string
+  title?: string;
 }
 
 export const Title = ({ title }: TitleProps) => {
-  const router = useRouter()
+  const router = useRouter();
   return (
     <Head>
       <title>
         {router.pathname === "/" || !title
           ? "리얼로그 ─ REALOG"
-          : `${title} | 리얼로그`}
+          : `${title && `${title} | `}리얼로그`}
       </title>
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,5 +24,5 @@ export const Title = ({ title }: TitleProps) => {
       <meta property="og:description" content="" />
       <meta property="og:image" content="./images/ogimage.jpg" />
     </Head>
-  )
-}
+  );
+};

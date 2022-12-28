@@ -24,7 +24,9 @@ function Blog({ userData, blogData, children }: IBlogLayoutPropsType) {
       />
       <Profile userData={userData} />
       <Top>
-        <ItemInfo>{blogData?.data?.length || 0}개의 게시글</ItemInfo>
+        <ItemInfo>
+          {blogData?.data && `${blogData?.data?.length || 0}개의 게시글`}
+        </ItemInfo>
         <Search>
           <input type="text" />
         </Search>

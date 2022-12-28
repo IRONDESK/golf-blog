@@ -1,14 +1,18 @@
-import React from "react"
-import { useRouter } from "next/router"
-import { Header, Footer } from "./"
+import React from "react";
+import styled from "@emotion/styled";
+
+import { Header, Footer } from "./";
 
 export const Layout = ({ children }: any) => {
-  const router = useRouter()
   return (
     <>
-      {router.query.id ? null : <Header />}
-      {children}
+      <Header />
+      <Main>{children}</Main>
       <Footer />
     </>
-  )
-}
+  );
+};
+
+const Main = styled.main`
+  margin: 60px 0 0;
+`;

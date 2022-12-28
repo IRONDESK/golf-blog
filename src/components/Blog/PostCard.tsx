@@ -17,7 +17,7 @@ function PostCard({
   commentCount,
   likeCount,
 }: BoardPostPropsType) {
-  const createdAtConvertDate = new Date(createdAt);
+  const createdAtConvertDate = new Date(createdAt || 0);
   const createdAtConvert = new Intl.DateTimeFormat("ko-KR", {
     dateStyle: "medium",
     timeStyle: "medium",
