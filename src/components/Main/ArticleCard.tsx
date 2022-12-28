@@ -1,63 +1,41 @@
-import React from "react"
-import styled from "@emotion/styled"
-import { IBoardArticleTypes } from "../../types/BoardType"
+import React from "react";
+import styled from "@emotion/styled";
+import { IBoardArticleTypes } from "../../types/BoardType";
+import Link from "next/link";
 
 function ArticleCard({
+  boardId,
   title,
   content,
-  lastModifiedAt,
+  createdAt,
   createdBy,
-  likeCount,
 }: IBoardArticleTypes) {
+  const convertDate = (date: string) => {
+    const target = new Date(date);
+    const converted = new Intl.DateTimeFormat("ko-KR").format(target);
+    return converted;
+  };
   return (
-    <Container>
-      <Img>
-        <label>{likeCount}</label>
-      </Img>
-      <TextWrap>
+    <Link href={`/${createdBy}/${boardId}`}>
+      <Container>
         <h4>{title}</h4>
         <p className="card-content">{content}</p>
         <Written>
-          <p className="card-createdby">{createdBy}</p>
-          <p className="card-modifiedat">{lastModifiedAt}</p>
+          {convertDate(createdAt)} | {createdBy}
         </Written>
-      </TextWrap>
-    </Container>
-  )
+      </Container>
+    </Link>
+  );
 }
 
 const Container = styled.li`
+  cursor: pointer;
+  position: relative;
+  height: 136px;
+  padding: 16px;
   background-color: #fff;
   border: 1px solid #c7c7c7;
-  border-radius: 5px;
-  overflow: hidden;
-`
-const Img = styled.div`
-  position: relative;
-  width: 100%;
-  height: 160px;
-  background-color: #bfbfbf;
-  label {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    padding: 4px 8px;
-    bottom: 12px;
-    right: 12px;
-    background-color: rgba(0, 0, 0, 0.4);
-    border-radius: 15px;
-    color: #fff;
-    font-size: 0.85rem;
-    &::before {
-      content: "favorite";
-      margin: 0 4px 0 0;
-      font-family: "Material Icons";
-    }
-  }
-`
-
-const TextWrap = styled.div`
-  padding: 16px;
+  border-radius: 10px;
   h4 {
     display: block;
     margin: 4px 0;
@@ -76,27 +54,22 @@ const TextWrap = styled.div`
     font-size: 0.85rem;
     line-height: 1.1rem;
   }
-`
+`;
 const Written = styled.div`
+  position: absolute;
+  bottom: 0;
   display: flex;
-  margin: 12px 0 0 0;
+  margin: 0 0 16px;
   align-items: center;
-  justify-content: space-between;
-  p {
+  color: #777;
+  font-size: 0.8rem;
+  &::before {
+    content: "history_edu";
+    margin: 0 2px 0 -1px;
+    border-radius: 100%;
     color: #777;
-    font-size: 0.8rem;
+    font-size: 1.15rem;
+    font-family: "Material Icons";
   }
-  .card-createdby {
-    display: flex;
-    align-items: center;
-    &::before {
-      content: "history_edu";
-      margin: 0 2px 0 -1px;
-      border-radius: 100%;
-      color: #777;
-      font-size: 1.15rem;
-      font-family: "Material Icons";
-    }
-  }
-`
-export default ArticleCard
+`;
+export default ArticleCard;
