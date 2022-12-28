@@ -1,102 +1,114 @@
-import React, { useState } from "react"
-import Link from "next/link"
-import styled from "@emotion/styled"
-import { COLOR } from "../../shared/constants"
+import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import styled from "@emotion/styled";
+import { COLOR } from "../../shared/constants";
 
-import { LoginAuth } from "../../api/UserAuthApi"
+import { LoginAuth, MemberInfo } from "../../api/UserAuthApi";
+import { setCookie } from "cookies-next";
 
 function Login() {
-  const [userEmail, setUserEmail] = useState("")
-  const [userPwd, setUserPwd] = useState("")
+  const router = useRouter();
+  const [userEmail, setUserEmail] = useState("");
+  const [userPwd, setUserPwd] = useState("");
   const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault()
-    LoginAuth(userEmail, userPwd).then((res) => console.log(res))
-  }
+    e.preventDefault();
+    LoginAuth(userEmail, userPwd).then((res) => {
+      const accessToken = res.data.accessToken;
+      setCookie("accessToken", accessToken);
+      router.push("/");
+    });
+  };
 
   return (
     <Container>
       <Form onSubmit={handleLogin}>
-        <input
-          style={{ order: 2 }}
-          type="text"
-          id="email"
-          autoFocus={true}
-          onChange={(e) => setUserEmail(e.target.value)}
-          value={userEmail}
-        />
-        <label style={{ order: 1 }} htmlFor="email">
-          이메일
+        <h2>로그인</h2>
+        <label htmlFor="email">
+          <span>이메일</span>
+          <input
+            type="email"
+            id="email"
+            autoFocus={true}
+            onChange={(e) => setUserEmail(e.target.value)}
+            value={userEmail}
+          />
         </label>
-        <input
-          style={{ order: 4 }}
-          type="password"
-          id="password"
-          onChange={(e) => setUserPwd(e.target.value)}
-          value={userPwd}
-        />
-        <label style={{ order: 3 }} htmlFor="password">
-          비밀번호
+        <label htmlFor="password">
+          <span>비밀번호</span>
+          <input
+            type="password"
+            id="password"
+            onChange={(e) => setUserPwd(e.target.value)}
+            value={userPwd}
+          />
         </label>
-        <div style={{ order: 5 }}>
+        <div>
           <LoginButton type="submit">로그인</LoginButton>
         </div>
-        <div style={{ order: 6 }}>
+        <div>
           <JoinButton>
             <Link href="/user/join">회원가입</Link>
           </JoinButton>
         </div>
       </Form>
     </Container>
-  )
+  );
 }
 
 const Container = styled.main`
   background-color: ${COLOR.background};
-`
+`;
 const Form = styled.form`
   display: flex;
   margin: 0 auto;
-  padding: 40px 0;
+  padding: 40px 20px 48px;
   max-width: 460px;
-  height: 70vh;
+  min-height: 88vh;
   flex-direction: column;
   justify-content: center;
+  gap: 20px;
+  h2 {
+    margin: 0 0 20px;
+    font-size: 2rem;
+    font-weight: 600;
+  }
   input {
-    margin: 0 0 32px;
     padding: 12px;
     width: 100%;
-    font-size: 1.25rem;
+    font-size: 1rem;
     border-radius: 10px;
     border: 1px solid ${COLOR.border};
     &:focus {
       border: 2px solid ${COLOR.main};
-      & + label {
-        font-weight: 500;
-        font-size: 1.2rem;
-      }
     }
   }
   label {
-    margin: 0 0 8px;
-    transition: all 0.3s;
+    span {
+      display: inline-block;
+      margin: 0 0 8px;
+      transition: all 0.3s;
+    }
+    &:has(input:focus) {
+      font-weight: 500;
+      font-size: 1.2rem;
+    }
   }
-`
+`;
 
 const LoginButton = styled.button`
   padding: 16px 0;
   width: 100%;
+  background-color: ${COLOR.gray};
   border-radius: 10px;
-  border: 1px solid ${COLOR.gray};
-  color: ${COLOR.gray};
+  color: #fff;
   font-size: 1.15rem;
-  transition: all 0.3s;
+  transition: opacity 0.3s;
   &:hover,
   &:focus {
-    background-color: ${COLOR.gray};
-    color: ${COLOR.white};
-    font-weight: 500;
+    opacity: 0.8;
   }
-`
+`;
 
 const JoinButton = styled.p`
   margin: 24px 0;
@@ -105,6 +117,6 @@ const JoinButton = styled.p`
   &:hover {
     opacity: 1;
   }
-`
+`;
 
-export default Login
+export default Login;
