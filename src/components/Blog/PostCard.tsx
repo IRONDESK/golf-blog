@@ -1,13 +1,13 @@
-import styled from "@emotion/styled"
-import React from "react"
-import { COLOR } from "../../shared/constants"
+import styled from "@emotion/styled";
+import React from "react";
+import { COLOR } from "../../shared/constants";
 
 interface BoardPostPropsType {
-  title: string
-  content: string
-  createdAt: string
-  commentCount: number
-  likeCount: number
+  title: string;
+  content: string;
+  createdAt: string;
+  commentCount: number;
+  likeCount: number;
 }
 
 function PostCard({
@@ -17,11 +17,17 @@ function PostCard({
   commentCount,
   likeCount,
 }: BoardPostPropsType) {
+  const createdAtConvertDate = new Date(createdAt);
+  const createdAtConvert = new Intl.DateTimeFormat("ko-KR", {
+    dateStyle: "medium",
+    timeStyle: "medium",
+  }).format(createdAtConvertDate);
+
   return (
     <Container>
       <Head>
         <p>{title}</p>
-        <p>{createdAt}</p>
+        <p>{createdAtConvert}</p>
       </Head>
       <Content>{content}</Content>
       <Buttons>
@@ -29,16 +35,16 @@ function PostCard({
         <Comment type="button">{commentCount.toLocaleString()}</Comment>
       </Buttons>
     </Container>
-  )
+  );
 }
 
 const Container = styled.section`
+  margin: 0 0 24px;
   padding: 32px 36px;
   width: 100%;
   background-color: #fff;
   border-radius: 24px;
-  /* box-shadow: 0 0 32px 12px rgba(0, 0, 0, 0.05); */
-`
+`;
 const Head = styled.div`
   display: flex;
   justify-content: space-between;
@@ -51,13 +57,14 @@ const Head = styled.div`
     font-size: 0.9rem;
     color: ${COLOR.gray};
   }
-`
+`;
 const Content = styled.p`
   margin: 24px 0 0;
   font-size: 0.95rem;
   font-weight: 300;
   line-height: 1.2rem;
-`
+  white-space: pre-wrap;
+`;
 
 const Buttons = styled.div`
   display: flex;
@@ -70,7 +77,7 @@ const Buttons = styled.div`
     font-size: 0.9rem;
     border-radius: 20px;
   }
-`
+`;
 const Like = styled.button`
   background-color: #ffecf7;
   color: #ff88b3;
@@ -80,7 +87,7 @@ const Like = styled.button`
     left: 4px;
     font-family: "Material Icons";
   }
-`
+`;
 const Comment = styled.button`
   background-color: #eaf2fe;
   color: #589afa;
@@ -90,6 +97,6 @@ const Comment = styled.button`
     left: 4px;
     font-family: "Material Icons";
   }
-`
+`;
 
-export default PostCard
+export default PostCard;
